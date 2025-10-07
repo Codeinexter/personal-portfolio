@@ -26,12 +26,12 @@ export default function Navbar() {
 
   const navLinks = [
     { id: "home", icon: FaHome, text: "Home", href: "/" },
-    { id: "about", icon: FaUser, text: "About", href: "/#about" },
-    { id: "experience", icon: FaBriefcase, text: "Experience", href: "/#experience" },
-    { id: "skills", icon: FaCode, text: "Skills", href: "/#skills" },
-    { id: "projects", icon: FaLaptopCode, text: "Projects", href: "/#projects" },
-    { id: "education", icon: FaGraduationCap, text: "Education", href: "/#education" },
-    { id: "contact", icon: FaEnvelope, text: "Contact", href: "/#contact" },
+    { id: "about", icon: FaUser, text: "About", href: "#about" },
+    { id: "experience", icon: FaBriefcase, text: "Experience", href: "#experience" },
+    { id: "skills", icon: FaCode, text: "Skills", href: "#skills" },
+    { id: "projects", icon: FaLaptopCode, text: "Projects", href: "#projects" },
+    { id: "education", icon: FaGraduationCap, text: "Education", href: "#education" },
+    { id: "contact", icon: FaEnvelope, text: "Contact", href: "#contact" },
   ];
 
   return (

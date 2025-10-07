@@ -1,4 +1,6 @@
+import { personalData } from '@/utils/data/personal-data';
 import { projectsData } from '@/utils/data/projects-data';
+import { BsGithub } from 'react-icons/bs';
 import ProjectCard from './project-card';
 
 const Projects = () => {
@@ -29,6 +31,18 @@ const Projects = () => {
             </div>
           ))}
         </div>
+      </div>
+      {/* After your ProjectCard components are rendered */}
+      <div className="flex justify-center mt-8">
+        <a
+          href={personalData.repos} // or a specific GitHub repo/org link
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 md:px-10 md:py-4 bg-gradient-to-r from-pink-500 to-violet-600 text-white rounded-full font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
+        >
+          <BsGithub size={20} />
+          More Projects
+        </a>
       </div>
     </div>
   );

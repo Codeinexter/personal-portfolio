@@ -3,7 +3,6 @@
 import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 
-
 function AboutSection() {
   return (
     <div id="about" className="my-12 lg:my-16 relative">
@@ -21,11 +20,24 @@ function AboutSection() {
           <p className="text-gray-200 text-sm lg:text-lg">
             {personalData.description}
           </p>
+          <div className="pt-6">
+            <blockquote className="border-l-4 border-gray-300 pl-4">
+              <p className="text-white">
+                I'm a lifelong learner, driven by a desire to
+                contribute to the developer community.
+                </p>
+              <div className="mt-6 space-y-3">
+                <cite className="block font-medium text-white">
+                  Roshaid Atique
+                </cite>
+              </div>
+            </blockquote>
+          </div>
         </div>
         <div className="flex justify-center order-1 lg:order-2">
           <Image
             src={personalData.profile}
-            width={280}
+            width={330}
             height={280}
             alt="Roshaid Atique"
             className="rounded-lg transition-all duration-1000 grayscale hover:grayscale-0 hover:scale-110 cursor-pointer"
@@ -34,6 +46,6 @@ function AboutSection() {
       </div>
     </div>
   );
-};
+}
 
 export default AboutSection;

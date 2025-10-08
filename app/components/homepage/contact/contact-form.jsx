@@ -69,7 +69,7 @@ function ContactForm() {
                 className="flex flex-col gap-2"
               >
                 <label className="text-base font-medium capitalize tracking-wide">
-                  {field === "message" ? "Your Message:" : `Your ${field}:`}
+                  {field === "message" ? "Message:" : `${field}:`}
                 </label>
                 {field === "message" ? (
                   <textarea

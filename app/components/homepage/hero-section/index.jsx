@@ -1,5 +1,5 @@
 // @flow strict
-'use client';
+"use client";
 import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { FaFacebook, FaTwitterSquare } from "react-icons/fa";
 import { MdDownload } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
 import { SiLeetcode } from "react-icons/si";
-import { TypeAnimation } from 'react-type-animation';
+import { TypeAnimation } from "react-type-animation";
 
 function HeroSection() {
   return (
@@ -25,26 +25,27 @@ function HeroSection() {
       <div className="grid grid-cols-1 items-start lg:grid-cols-2 lg:gap-12 gap-y-8">
         <div className="order-2 lg:order-1 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:pt-10">
           <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
-            Hello, <br />
+            Hello,
+            <br />
             This is <span className=" text-pink-500">{personalData.name}</span>
             {`, I'm a Professional `}
             <br />
-            <div className="absolute -top-3 -right-4 flex space-x-1">
-            </div>
-            <TypeAnimation className="text-green-500"
-        sequence={[
-          'Software Developer 😄',  // text
-          3000,                     // wait 2s
-          'Computer Engineer 💻',  // next text
-          3000,
-          'Web Developer 🕸️',        // next text
-          3000,
-        ]}
-        speed={45} // typing speed (lower = slower)
-        deletionSpeed={40}
-        repeat={Infinity}
-        wrapper="span"
-      />
+            <div className="absolute -top-3 -right-4 flex space-x-1"></div>
+            <TypeAnimation
+              className="text-green-500"
+              sequence={[
+                "Software Developer 😄", // text
+                3000, // wait 2s
+                "Computer Engineer 💻", // next text
+                3000,
+                "Web Developer 🕸️", // next text
+                3000,
+              ]}
+              speed={45} // typing speed (lower = slower)
+              deletionSpeed={40}
+              repeat={Infinity}
+              wrapper="span"
+            />
           </h1>
 
           <div className="my-12 flex items-center gap-5">

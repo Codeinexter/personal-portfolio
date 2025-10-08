@@ -29,7 +29,7 @@ export const projectsData = [
     {
         id: 4,
         name: 'Advanced MERN Authentication System',
-        description: " Implemented a role-based access control (RBAC), secure authentication & authorization web service using JWT (JSON Web Token) to issue and verify tokens, bcrypt to hash passwords. Used mailtrap to send email, verification, password recovery & reset, welcome emails. Reducing the risk of credential theft and mitigating session hijacking with token expiration and refresh mechanisms. Designed RESTful API endpoints, enforced data validation & error handling for scalable production use.",
+        description: " Implemented a role-based access control (RBAC), secure authentication & authorization web service using JWT (JSON Web Token) to issue and verify tokens, bcrypt to hash passwords. Used mailtrap to send email, verification, password recovery & reset, welcome emails, token expiration and refresh mechanisms.",
         tools: ['React.js', 'Zustand(state management)', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Mailtrap Client', 'Render'],
         code: 'https://github.com/Codeinexter/Authorization',
         demo: 'https://authorization-rh58.onrender.com/',
@@ -38,7 +38,7 @@ export const projectsData = [
     {
         id: 5,
         name: ' Movie Recommender System',
-        description: 'Developed a content-based recommender system, suggesting the top five movies based on user input. Implemented using NLP (Natural Language Processing) techniques such as Count Vectorizer and Cosine Similarity.',
+        description: 'Developed a content-based recommender system, suggesting the top five movies based on user input.',
         tools: ['Python', 'Numpy', 'Pandas', 'Matplotlib', 'Jupyter Notebook', 'Streamlit'],
         role: 'Data Scientist',
         code: 'https://github.com/Codeinexter/Movie-Recommender-System',
@@ -63,17 +63,3 @@ export const projectsData = [
         demo: 'https://todo-app-two-sandy-89.vercel.app/',
     },
 ];
-
-
-// Do not remove any property.
-// Leave it blank instead as shown below
-
-// {
-//     id: 1,
-//     name: '',
-//     description: "",
-//     tools: [],
-//     role: '',
-//     code: '',
-//     demo: '',
-// },

@@ -50,7 +50,7 @@ function ContactForm() {
       className="max-w-3xl mx-auto"
     >
       <h2 className="font-bold mb-4 text-[#16f2b3] text-2xl uppercase tracking-wider">
-        Let's Get in Touch 👇
+        Let&apos;s Get in Touch 👇
       </h2>
 
       <div className="relative p-[1px] rounded-2xl bg-gradient-to-r from-pink-500 via-[#16f2b3] to-violet-600">

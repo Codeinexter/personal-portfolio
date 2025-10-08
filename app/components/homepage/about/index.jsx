@@ -23,7 +23,7 @@ function AboutSection() {
           <div className="pt-6">
             <blockquote className="border-l-4 border-gray-300 pl-4">
               <p className="text-white">
-                I'm a lifelong learner, driven by a desire to
+                I&apos;m a lifelong learner, driven by a desire to
                 contribute to the developer community.
                 </p>
               <div className="mt-6 space-y-3">

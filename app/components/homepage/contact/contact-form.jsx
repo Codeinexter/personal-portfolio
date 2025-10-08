@@ -74,7 +74,7 @@ function ContactForm() {
                 {field === "message" ? (
                   <textarea
                     className="bg-[#10172d]/70 border border-[#353a52] rounded-lg px-4 py-3 focus:border-[#16f2b3] focus:ring-2 focus:ring-[#16f2b3]/40 transition-all duration-300 outline-none placeholder:text-gray-400"
-                    rows="5"
+                    rows="3"
                     maxLength="500"
                     value={userInput.message}
                     placeholder="Write your message..."

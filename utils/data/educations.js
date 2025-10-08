@@ -1,6 +1,6 @@
 export const educations = [
   {
-      degree: "Bachelor of Technology (B.Tech) in Computer Science and Engineering",
+      degree: "Bachelor of Technology (B.Tech) in Computer Engineering",
       school: "Aligarh Muslim University",
       mascot: "🎓",
       year: "2023-Present",
@@ -17,7 +17,7 @@ export const educations = [
       achievements: ["Percentage: 86.7%", "Subject: Science"],
       skills: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
       description:
-        "Developed strong analytical and critical thinking skills.",
+        "Focused on core science subjects with emphasis on practical laboratory work and foundational knowledge in computer science.",
     },
     {
       degree: "Secondary School Certificate (SSC)",
@@ -27,6 +27,6 @@ export const educations = [
       achievements: ["Percentage: 91.17%", "Subject: Science"],
       skills: ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science", "History", "Geography", "Literature"],
       description:
-        "Focused on core science subjects with emphasis on practical laboratory work and foundational knowledge in computer science.",
+        "Developed strong analytical and critical thinking skills.",
     },
 ]

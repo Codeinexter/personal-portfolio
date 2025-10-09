@@ -1,54 +1,61 @@
-'use client';
+"use client";
 import { experiences } from "@/utils/data/experience";
 import { motion } from "framer-motion";
 import { Award, Briefcase, Calendar, Trophy } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import experience from '../../../assets/lottie/code.json';
+import { memo, useEffect, useState } from "react";
+import experienceLottie from "../../../assets/lottie/code.json";
 import AnimationLottie from "../../helper/animation-lottie";
 import GlowCard from "../../helper/glow-card";
 
+// Variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.18 } },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.18 },
+  },
 };
 
 const cardVariants = {
   hidden: (i) => ({
-    x: i % 2 === 1 ? -100 : 100, // even index from left, odd from right
+    x: i % 2 === 1 ? -100 : 100,
     opacity: 0,
   }),
-  visible: {
+  visible: (i) => ({
     x: 0,
     opacity: 1,
     transition: {
       duration: 0.7,
       ease: "easeInOut",
     },
-  },
+  }),
 };
 
+// Memoized components to reduce re-render cost
+const MemoGlowCard = memo(GlowCard);
+const MemoAnimationLottie = memo(AnimationLottie);
+
 export default function Experience() {
-  const [animateKey, setAnimateKey] = useState(0);
-  
-    useEffect(() => {
-      // Listen for navbar clicks targeting #education
-      const handleClick = (e) => {
-        const target = e.target.closest("a[href='#experience']");
-        if (target) {
-          // Smooth scroll
-          document
-            .querySelector("#experience")
-            ?.scrollIntoView({ behavior: "smooth" });
-  
-          // Force re-trigger animation
-          setAnimateKey((prev) => prev + 1);
-        }
-      };
-  
-      document.addEventListener("click", handleClick);
-      return () => document.removeEventListener("click", handleClick);
-    }, []);
+  const [trigger, setTrigger] = useState(0);
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      const target = e.target.closest("a[href='#experience']");
+      if (target) {
+        e.preventDefault();
+        document
+          .querySelector("#experience")
+          ?.scrollIntoView({ behavior: "smooth" });
+
+        // retrigger animation sequence
+        setTrigger((prev) => prev + 1);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   return (
     <section
@@ -57,18 +64,20 @@ export default function Experience() {
     >
       <Image
         src="/section.svg"
-        alt="Hero"
+        alt="Hero Background"
         width={1572}
         height={795}
-        className="absolute top-0 -z-10"
+        className="absolute top-0 -z-10 select-none pointer-events-none"
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Section Title */}
       <motion.div
-      key={`title-${animateKey}`}
+        key={`title-${trigger}`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
         className="flex justify-center my-5 lg:py-8"
       >
         <div className="flex items-center">
@@ -82,33 +91,38 @@ export default function Experience() {
 
       {/* Cards */}
       <motion.div
-      key={`cards-${animateKey}`}
+        key={`container-${trigger}`} // 🔁 changing key restarts animation
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16"
+        className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 will-change-transform"
       >
         {/* Lottie Animation */}
-        <div className="flex-shrink-0 w-3/4 h-3/4">
-          <AnimationLottie
-            animationPath={experience}
-            width={"100%"}
-            height={"100%"}
+        <div className="flex-shrink-0 w-3/4 h-3/4 mx-auto will-change-transform">
+          <MemoAnimationLottie
+            key={`lottie-${trigger}`}
+            animationPath={experienceLottie}
+            width="100%"
+            height="100%"
+            loop
+            autoPlay
+            renderer="svg"
           />
         </div>
 
         {experiences.map((exp, i) => (
           <motion.div
+            key={`exp-${i}-${trigger}`}
             custom={i}
-            key={i}
             variants={cardVariants}
             initial="hidden"
             animate="visible"
-            className="h-full"
+            className="h-full will-change-transform"
           >
-            <GlowCard identifier={`exp-${i}`}>
-              <div className="relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/50 backdrop-blur-sm border-blue-400/20 hover:border-teal-500 glow-card">
+            <MemoGlowCard identifier={`exp-${i}`}>
+              <div className="relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/40 backdrop-blur-sm border-blue-400/20 hover:border-teal-500">
                 <div className="space-y-6">
+                  {/* Header */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{exp.mascot}</span>
@@ -126,10 +140,12 @@ export default function Experience() {
                     </p>
                   </div>
 
+                  {/* Description */}
                   <p className="text-gray-300 text-sm italic border-l-2 border-teal-500 pl-3">
                     {exp.description}
                   </p>
 
+                  {/* Achievements */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-white flex items-center gap-2">
                       <Trophy className="w-4 h-4 text-yellow-500" />
@@ -138,7 +154,7 @@ export default function Experience() {
                     <div className="flex flex-wrap gap-2">
                       {exp.achievements.map((achievement, j) => (
                         <div
-                          key={j}
+                          key={`ach-${j}`}
                           className="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 flex items-center gap-2 text-sm"
                         >
                           <Award className="w-4 h-4" />
@@ -148,10 +164,11 @@ export default function Experience() {
                     </div>
                   </div>
 
+                  {/* Skills */}
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill, k) => (
                       <span
-                        key={k}
+                        key={`skill-${k}`}
                         className="px-2 py-1 text-xs rounded bg-blue-500/10 text-blue-300"
                       >
                         {skill}
@@ -160,7 +177,7 @@ export default function Experience() {
                   </div>
                 </div>
               </div>
-            </GlowCard>
+            </MemoGlowCard>
           </motion.div>
         ))}
       </motion.div>

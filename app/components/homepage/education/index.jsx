@@ -3,7 +3,7 @@ import { educations } from "@/utils/data/educations";
 import { motion } from "framer-motion";
 import { Award, BookOpen, Calendar, Trophy } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import lottieFile from "../../../assets/lottie/study.json";
 import AnimationLottie from "../../helper/animation-lottie";
 import GlowCard from "../../helper/glow-card";
@@ -21,31 +21,33 @@ const cardVariants = {
     x: i % 2 === 1 ? -100 : 100,
     opacity: 0,
   }),
-  visible: {
+  visible: (i) => ({
     x: 0,
     opacity: 1,
     transition: {
       duration: 0.7,
       ease: "easeInOut",
     },
-  },
+  }),
 };
 
+const MemoGlowCard = memo(GlowCard);
+const MemoAnimationLottie = memo(AnimationLottie);
+
 export default function EducationSection() {
-  const [animateKey, setAnimateKey] = useState(0);
+  const [trigger, setTrigger] = useState(0);
 
   useEffect(() => {
-    // Listen for navbar clicks targeting #education
     const handleClick = (e) => {
       const target = e.target.closest("a[href='#education']");
       if (target) {
-        // Smooth scroll
+        e.preventDefault();
         document
           .querySelector("#education")
           ?.scrollIntoView({ behavior: "smooth" });
 
-        // Force re-trigger animation
-        setAnimateKey((prev) => prev + 1);
+        // retrigger animation
+        setTrigger((prev) => prev + 1);
       }
     };
 
@@ -63,15 +65,17 @@ export default function EducationSection() {
         alt="Hero"
         width={1572}
         height={795}
-        className="absolute top-0 -z-10"
+        className="absolute top-0 -z-10 select-none pointer-events-none"
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Section Title */}
       <motion.div
-        key={`title-${animateKey}`}
+        key={`title-${trigger}`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
         className="flex justify-center my-5 lg:py-8"
       >
         <div className="flex items-center">
@@ -85,31 +89,36 @@ export default function EducationSection() {
 
       {/* Cards */}
       <motion.div
-        key={`cards-${animateKey}`} // 👈 when key changes → animation restarts
+        key={`container-${trigger}`} // 🔁 re-render container to replay animation
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16"
+        className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 will-change-transform"
       >
         {/* Lottie Animation */}
-        <div className="flex-shrink-0 w-3/4 h-3/4">
-          <AnimationLottie
+        <div className="flex-shrink-0 w-3/4 h-3/4 mx-auto will-change-transform">
+          <MemoAnimationLottie
+            key={`lottie-${trigger}`}
             animationPath={lottieFile}
-            width={"100%"}
-            height={"100%"}
+            width="100%"
+            height="100%"
+            loop
+            autoPlay
+            renderer="svg"
           />
         </div>
 
         {educations.map((edu, i) => (
           <motion.div
-            key={i}
+            key={`edu-${i}-${trigger}`} // 🔁 trigger replay
             custom={i}
             variants={cardVariants}
             initial="hidden"
             animate="visible"
+            className="h-full will-change-transform"
           >
-            <GlowCard identifier={`edu-${i}`}>
-              <div className="relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/50 backdrop-blur-sm border-blue-400/20 hover:border-teal-500 glow-card">
+            <MemoGlowCard identifier={`edu-${i}`}>
+              <div className="relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/40 backdrop-blur-sm border-blue-400/20 hover:border-teal-500">
                 <div className="space-y-6">
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
@@ -140,7 +149,7 @@ export default function EducationSection() {
                     <div className="flex flex-wrap gap-2">
                       {edu.achievements.map((achievement, j) => (
                         <div
-                          key={j}
+                          key={`ach-${j}`}
                           className="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 flex items-center gap-2 text-sm"
                         >
                           <Award className="w-4 h-4" />
@@ -153,7 +162,7 @@ export default function EducationSection() {
                   <div className="flex flex-wrap gap-2">
                     {edu.skills.map((skill, k) => (
                       <span
-                        key={k}
+                        key={`skill-${k}`}
                         className="px-2 py-1 text-xs rounded bg-blue-500/10 text-blue-300"
                       >
                         {skill}
@@ -162,7 +171,7 @@ export default function EducationSection() {
                   </div>
                 </div>
               </div>
-            </GlowCard>
+            </MemoGlowCard>
           </motion.div>
         ))}
       </motion.div>

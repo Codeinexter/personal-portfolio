@@ -60,7 +60,7 @@ export async function POST(request) {
     const message = `New message from ${name}\n\nEmail: ${email}\n\nSubject: ${userSubject}\n\nMessage:\n\n${userMessage}\n\n`;
 
     // Send email
-    const emailSuccess = await sendEmail(payload, message);
+    const emailSuccess = await sendEmail(payload, userSubject, message);
 
     if(emailSuccess){
       return NextResponse.json({

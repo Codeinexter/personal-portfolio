@@ -52,16 +52,7 @@ async function sendEmail(payload, subject, message) {
   }
 };
 
-export async function POST(request, res) {
-
-  res.setHeader('Access-Control-Allow-Origin', 'https://personal-portfolio-uc5o.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end(); // Handle preflight request
-    return;
-  }
+export async function POST(request) {
 
   try {
     const payload = await request.json();
